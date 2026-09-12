@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>STARS OF BLOOD 3D</title>
+<style>
+  html,body{margin:0;padding:0;background:#030507;color:#cfe8dd;height:100%;overflow:hidden;
+    font-family:"Courier New",ui-monospace,monospace;}
+  canvas{display:block;}
+  .overlay{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;text-align:center;pointer-events:none;z-index:5;}
+  .hidden{display:none!important;}
+  #title h1{font-size:min(9vw,84px);letter-spacing:.14em;margin:0;color:#e8f6ee;
+    text-shadow:0 0 24px rgba(90,255,170,.35),0 0 90px rgba(255,60,40,.25);font-weight:700;}
+  #title h1 span{color:#ff4a33;text-shadow:0 0 30px rgba(255,74,51,.8);}
+  #title .sub{margin-top:10px;color:#7fae9c;letter-spacing:.34em;font-size:13px;text-transform:uppercase;}
+  #title .prompt{margin-top:64px;color:#e8f6ee;font-size:16px;letter-spacing:.2em;animation:blink 1.6s infinite;}
+  #title .fine{margin-top:34px;color:#4d6f63;font-size:11px;line-height:1.7;max-width:520px;}
+  @keyframes blink{0%,55%{opacity:1}56%,100%{opacity:.15}}
+  .keys{margin-top:22px;color:#4d6f63;font-size:11px;letter-spacing:.12em;line-height:2;}
+  #hud{position:fixed;inset:0;pointer-events:none;z-index:3;}
+  #crosshair{position:absolute;left:50%;top:50%;width:26px;height:26px;transform:translate(-50%,-50%);}
+  #crosshair:before,#crosshair:after{content:'';position:absolute;background:rgba(174,247,216,.9);}
+  #crosshair:before{left:12px;top:0;width:2px;height:26px;}
+  #crosshair:after{left:0;top:12px;width:26px;height:2px;}
+  #stats{position:absolute;left:26px;bottom:22px;font-size:12px;line-height:1.9;color:#9fc4b6;}
+  #hullbar{width:240px;height:12px;background:rgba(10,26,20,.8);border:1px solid rgba(90,255,170,.4);}
+  #hullfill{height:100%;background:#5affaa;width:100%;}
+  #speed{position:absolute;right:26px;bottom:22px;text-align:right;font-size:12px;color:#9fc4b6;line-height:1.9;}
+  #mission{position:absolute;top:24px;left:28px;text-align:left;color:#9fc4b6;font-size:13px;line-height:1.9;}
+  #mission .t{color:#5affaa;letter-spacing:.2em;font-size:12px;}
+  #mission .obj{color:#e8f6ee;max-width:520px;}
+  #toastwrap{position:fixed;left:50%;bottom:12%;transform:translateX(-50%);display:flex;
+    align-items:flex-end;gap:16px;pointer-events:none;z-index:4;}
+  #portrait{width:96px;height:96px;border:1px solid #2a5a46;image-rendering:pixelated;
+    opacity:0;transition:opacity .3s;background:#050a08;}
+  #toast{color:#ffe9c9;max-width:560px;text-align:left;font-size:15px;letter-spacing:.12em;
+    text-shadow:0 0 12px rgba(255,170,60,.6);transition:opacity .4s;opacity:0;}
+  #vignette{position:fixed;inset:0;pointer-events:none;z-index:2;opacity:0;
+    background:radial-gradient(ellipse at center, transparent 55%, rgba(255,30,10,.45) 100%);}
+</style>
+</head>
+<body>
+<div id="vignette"></div>
+<div id="hud">
+  <div id="crosshair"></div>
+  <div id="stats"><div id="hullbar"><div id="hullfill"></div></div><div id="statline"></div></div>
+  <div id="speed"></div>
+  <div id="mission"></div>
+</div>
+<div id="toastwrap"><img id="portrait" alt=""><div id="toast"></div></div>
+<div id="title" class="overlay">
+  <h1>STARS OF <span>BLOOD</span></h1>
+  <div class="sub">a space pirate's elegy &middot; 3d &middot; the complete campaign - ten contracts in the bleed</div>
+  <div class="prompt">PRESS ENTER - NEW GAME&ensp;&middot;&ensp;C - CONTINUE&ensp;&middot;&ensp;<span id="artlink" onclick="openArchive()">VIEW THE RECOVERED ARCHIVE</span></div>
+  <div class="fine">An unofficial fan completion of Valve's cancelled project, built from the
+  leaked concept art (Valve Archive) and Gabe Newell's 2012 description: "a space pirates game."
+  Not affiliated with or endorsed by Valve.</div>
+  <div class="keys">MOUSE STEER &middot; W THRUST &middot; SHIFT BURN &middot; SPACE / CLICK FIRE &middot; Q MISSILE &middot; E DOCK &middot; M MUTE &middot; P PAUSE</div>
+</div>
+<script>window.__errs=[];
+(function(){var ce=console.error.bind(console),cw=console.warn.bind(console);
+console.error=function(){window.__errs.push('CE: '+Array.from(arguments).join(' ').slice(0,300));ce.apply(null,arguments)};
+console.warn=function(){window.__errs.push('CW: '+Array.from(arguments).join(' ').slice(0,300));cw.apply(null,arguments)}})();window.addEventListener('error',e=>{window.__errs.push((e.message||'')+' @ '+(e.filename||'')+':'+(e.lineno||''));var d=document.getElementById('errbox')||(()=>{var x=document.createElement('div');x.id='errbox';document.documentElement.appendChild(x);return x})();d.textContent=window.__errs.join(' ||| ');});window.addEventListener('unhandledrejection',e=>{window.__errs.push('PROMISE: '+(e.reason&&e.reason.message||e.reason));});</script>
+<script src="js/music.js"></script>
+<script src="js/music-engine.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/art-manifest.js"></script>
+<script type="importmap">{"imports":{"three":"./lib/three.module.js"}}</script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
